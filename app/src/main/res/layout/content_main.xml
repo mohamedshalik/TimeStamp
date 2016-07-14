@@ -28,24 +28,16 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="57dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="End"
-        android:id="@+id/endbutton"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="End Time"
         android:id="@+id/endtxt"
-        android:layout_below="@+id/endbutton"
         android:layout_alignLeft="@+id/starttxt"
         android:layout_alignStart="@+id/starttxt"
-        android:layout_marginTop="65dp" />
+        android:layout_marginTop="65dp"
+        android:layout_centerVertical="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -54,7 +46,8 @@
         android:text="You have taken 0 hour 0 mins 0 secs"
         android:id="@+id/Output"
         android:layout_below="@+id/endtxt"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="86dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -64,4 +57,24 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Null"
+        android:id="@+id/modeoftransport"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_alignRight="@+id/Output"
+        android:layout_alignEnd="@+id/Output" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Mode Of Transport : "
+        android:id="@+id/textView2"
+        android:layout_alignTop="@+id/Reset"
+        android:layout_alignLeft="@+id/startbutton"
+        android:layout_alignStart="@+id/startbutton" />
 </RelativeLayout>

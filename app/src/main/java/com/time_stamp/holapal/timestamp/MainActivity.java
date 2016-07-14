@@ -20,11 +20,13 @@ import java.text.SimpleDateFormat;
 public class MainActivity extends AppCompatActivity {
 
 
-    Button start,end,reset;
-    TextView starttxt,endtxt,output;
-    Date starttime, starttime1;
+    static Button start;
+    Button reset;
+    TextView starttxt,endtxt,output,modeoftransport;
+    static Date starttime, starttime1;
+    int count=0;
+    public static String modeoftraspotation;
 
-    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,55 +36,35 @@ public class MainActivity extends AppCompatActivity {
 
         start = (Button)findViewById(R.id.startbutton);
         starttxt = (TextView)findViewById(R.id.starttxt);
-        end = (Button)findViewById(R.id.endbutton);
         endtxt = (TextView)findViewById(R.id.endtxt);
         output = (TextView)findViewById(R.id.Output);
         reset = (Button)findViewById(R.id.Reset);
+        modeoftransport = (TextView)findViewById(R.id.modeoftransport);
+        modeoftransport.setText(modeoftraspotation);
+
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Date date= new Date();
-                //Time Formate
-                DateFormat formatt=new SimpleDateFormat("hh:mm:ss");
-                //note the start time for difference calculation
-                try {
-                    starttime=formatt.parse(formatt.format(date));
-                } catch (ParseException e) {
-                    e.printStackTrace();
+
+                if (count==0)
+                {
+                    count=1;
+                    start(starttxt);
                 }
-                //print the start time
-                starttxt.setText(formatt.format(date));
+                else if(count==1)
+                {
+                    count=0;
+                    stop(endtxt,output);
+                }
+
+
 
             }
         });
-        end.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Date date= new Date();
-                //Date format
-                DateFormat formatt=new SimpleDateFormat("hh:mm:ss");
-                //note the end time for difference calculation
-                try {
-                    starttime1=formatt.parse(formatt.format(date));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                //Print the end time
-                endtxt.setText(formatt.format(date));
-                //calculate the difference in milliseconds
-                long diff = starttime1.getTime() - starttime.getTime();
-                //convert the milliseconds into Sec,Min and Hr
-                long timeDifSeconds = diff / 1000;
-                long timeDifMinutes = diff / (60 * 1000);
-                long timeDifHours = diff / (60 * 60 * 1000);
 
-                //Tost the difference
-                //Toast.makeText(getApplicationContext(),timeDifHours+"hr\t"+timeDifMinutes+"min \t"+timeDifSeconds+"sec",Toast.LENGTH_LONG).show();
-                //Output MSG
-                output.setText("You have taken "+timeDifHours+" hour "+timeDifMinutes+" mins "+timeDifSeconds+ "secs");
-            }
-        });
+
+
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,6 +86,51 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    public static void start(TextView starttxt)
+    {
+
+            start.setText("Stop");
+            Date date= new Date();
+            //Time Formate
+            DateFormat formatt=new SimpleDateFormat("hh:mm:ss");
+            //note the start time for difference calculation
+            try {
+                starttime=formatt.parse(formatt.format(date));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            //print the start time
+            starttxt.setText(formatt.format(date));
+
+
+    }
+    public static void stop(TextView endtxt,TextView output)
+    {
+        start.setText("Start");
+        Date date= new Date();
+        //Date format
+        DateFormat formatt=new SimpleDateFormat("hh:mm:ss");
+        //note the end time for difference calculation
+        try {
+            starttime1=formatt.parse(formatt.format(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        //Print the end time
+        endtxt.setText(formatt.format(date));
+        //calculate the difference in milliseconds
+        long diff = starttime1.getTime() - starttime.getTime();
+        //convert the milliseconds into Sec,Min and Hr
+        long timeDifSeconds = diff / 1000;
+        long timeDifMinutes = diff / (60 * 1000);
+        long timeDifHours = diff / (60 * 60 * 1000);
+
+        //Tost the difference
+        //Toast.makeText(getApplicationContext(),timeDifHours+"hr\t"+timeDifMinutes+"min \t"+timeDifSeconds+"sec",Toast.LENGTH_LONG).show();
+        //Output MSG
+        output.setText("You have taken "+timeDifHours+" hour "+timeDifMinutes+" mins "+timeDifSeconds+ "secs");
     }
 
     @Override
