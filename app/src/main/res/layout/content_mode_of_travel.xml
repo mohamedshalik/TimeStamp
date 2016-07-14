@@ -32,7 +32,7 @@
     <ImageButton
         android:layout_width="170dp"
         android:layout_height="200dp"
-        android:id="@+id/imageButton2"
+        android:id="@+id/bike"
         android:src="@drawable/bike"
         android:layout_alignTop="@+id/walk"
         android:layout_toRightOf="@+id/walk"
@@ -41,18 +41,18 @@
     <ImageButton
         android:layout_width="170dp"
         android:layout_height="200dp"
-        android:id="@+id/imageButton3"
-        android:src="@drawable/walk"
+        android:id="@+id/car"
+        android:src="@drawable/car"
         android:layout_below="@+id/walk"
-        android:layout_toLeftOf="@+id/imageButton4"
-        android:layout_toStartOf="@+id/imageButton4" />
+        android:layout_toLeftOf="@+id/bus"
+        android:layout_toStartOf="@+id/bus" />
 
     <ImageButton
         android:layout_width="170dp"
         android:layout_height="200dp"
-        android:id="@+id/imageButton4"
-        android:src="@drawable/walk"
-        android:layout_below="@+id/imageButton2"
+        android:id="@+id/bus"
+        android:src="@drawable/bus"
+        android:layout_below="@+id/bike"
         android:layout_toRightOf="@+id/walk"
         android:layout_toEndOf="@+id/walk" />
 

@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     static Button start;
-    Button reset;
+    Button reset,save;
     TextView starttxt,endtxt,output,modeoftransport;
     static Date starttime, starttime1;
     int count=0;
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         start = (Button)findViewById(R.id.startbutton);
+        save = (Button)findViewById(R.id.save);
         starttxt = (TextView)findViewById(R.id.starttxt);
         endtxt = (TextView)findViewById(R.id.endtxt);
         output = (TextView)findViewById(R.id.Output);
@@ -47,23 +48,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (count==0)
-                {
-                    count=1;
+                if (count == 0) {
+                    count = 1;
                     start(starttxt);
+                } else if (count == 1) {
+                    count = 0;
+                    stop(endtxt, output);
                 }
-                else if(count==1)
-                {
-                    count=0;
-                    stop(endtxt,output);
-                }
-
 
 
             }
         });
 
 
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"Successfully Saved",Toast.LENGTH_SHORT).show();
+            }
+        });
 
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +133,14 @@ public class MainActivity extends AppCompatActivity {
         //Tost the difference
         //Toast.makeText(getApplicationContext(),timeDifHours+"hr\t"+timeDifMinutes+"min \t"+timeDifSeconds+"sec",Toast.LENGTH_LONG).show();
         //Output MSG
+        if (timeDifSeconds>60)
+        {
+            timeDifSeconds=timeDifSeconds-60;
+        }
+        else if (timeDifMinutes>60)
+        {
+            timeDifMinutes=timeDifMinutes-60;
+        }
         output.setText("You have taken "+timeDifHours+" hour "+timeDifMinutes+" mins "+timeDifSeconds+ "secs");
     }
 

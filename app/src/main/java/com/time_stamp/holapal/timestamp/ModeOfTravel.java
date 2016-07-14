@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 
 public class ModeOfTravel extends AppCompatActivity {
 
-    ImageButton walk,bike;
+    ImageButton walk,bike,car,bus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,15 +21,38 @@ public class ModeOfTravel extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         walk=(ImageButton)findViewById(R.id.walk);
+        bike=(ImageButton)findViewById(R.id.bike);
+        car=(ImageButton)findViewById(R.id.car);
+        bus=(ImageButton)findViewById(R.id.bus);
 
         walk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.modeoftraspotation="Walk";
-                Intent timestamp=new Intent("android.intent.action.TIMESTAMP");
-                startActivity(timestamp);
+               action("Walk");
             }
         });
+
+        bike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                action("Bike");
+            }
+        });
+
+        car.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                action("Car");
+            }
+        });
+
+        bus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                action("Bus");
+            }
+        });
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -41,4 +64,10 @@ public class ModeOfTravel extends AppCompatActivity {
         });
     }
 
+    public void action(String mode)
+    {
+        MainActivity.modeoftraspotation=mode;
+        Intent timestamp=new Intent("android.intent.action.TIMESTAMP");
+        startActivity(timestamp);
+    }
 }

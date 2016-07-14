@@ -15,18 +15,18 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Start Time"
         android:id="@+id/starttxt"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="167dp" />
+        android:layout_marginTop="44dp"
+        android:layout_below="@+id/startbutton"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start"
         android:id="@+id/startbutton"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="57dp" />
+        android:layout_marginTop="42dp"
+        android:layout_below="@+id/arrow"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,10 +34,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="End Time"
         android:id="@+id/endtxt"
+        android:layout_marginTop="74dp"
+        android:layout_below="@+id/starttxt"
         android:layout_alignLeft="@+id/starttxt"
-        android:layout_alignStart="@+id/starttxt"
-        android:layout_marginTop="65dp"
-        android:layout_centerVertical="true" />
+        android:layout_alignStart="@+id/starttxt" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,9 +45,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="You have taken 0 hour 0 mins 0 secs"
         android:id="@+id/Output"
+        android:layout_marginTop="65dp"
         android:layout_below="@+id/endtxt"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="86dp" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -64,17 +64,53 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Null"
         android:id="@+id/modeoftransport"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_alignRight="@+id/Output"
-        android:layout_alignEnd="@+id/Output" />
+        android:layout_above="@+id/to"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Mode Of Transport : "
+        android:text="Mode Of Transport "
         android:id="@+id/textView2"
-        android:layout_alignTop="@+id/Reset"
-        android:layout_alignLeft="@+id/startbutton"
-        android:layout_alignStart="@+id/startbutton" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Source"
+        android:id="@+id/from"
+        android:layout_below="@+id/Reset"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Destination"
+        android:id="@+id/to"
+        android:layout_alignTop="@+id/from"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="->"
+        android:id="@+id/arrow"
+        android:layout_alignBottom="@+id/to"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/save"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
