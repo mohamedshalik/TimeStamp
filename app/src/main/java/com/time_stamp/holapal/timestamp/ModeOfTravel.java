@@ -67,7 +67,7 @@ public class ModeOfTravel extends AppCompatActivity {
     public void action(String mode)
     {
         MainActivity.modeoftraspotation=mode;
-        Intent timestamp=new Intent("android.intent.action.TIMESTAMP");
-        startActivity(timestamp);
+        Intent location=new Intent("com.time_stamp.holapal.LOCATION");
+        startActivity(location);
     }
 }

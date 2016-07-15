@@ -23,9 +23,10 @@ public class MainActivity extends AppCompatActivity {
     static Button start;
     Button reset,save;
     TextView starttxt,endtxt,output,modeoftransport;
+    TextView sourcetxt,destinatiotxt;
     static Date starttime, starttime1;
     int count=0;
-    public static String modeoftraspotation;
+    public static String modeoftraspotation,sourcetxt1= "Source",destinatiotxt1 = "Destination";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,11 @@ public class MainActivity extends AppCompatActivity {
         reset = (Button)findViewById(R.id.Reset);
         modeoftransport = (TextView)findViewById(R.id.modeoftransport);
         modeoftransport.setText(modeoftraspotation);
+        sourcetxt = (TextView)findViewById(R.id.from);
+        destinatiotxt = (TextView)findViewById(R.id.to);
 
+        sourcetxt.setText(sourcetxt1);
+        destinatiotxt.setText(destinatiotxt1);
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,13 +138,12 @@ public class MainActivity extends AppCompatActivity {
         //Tost the difference
         //Toast.makeText(getApplicationContext(),timeDifHours+"hr\t"+timeDifMinutes+"min \t"+timeDifSeconds+"sec",Toast.LENGTH_LONG).show();
         //Output MSG
-        if (timeDifSeconds>60)
-        {
-            timeDifSeconds=timeDifSeconds-60;
-        }
-        else if (timeDifMinutes>60)
-        {
-            timeDifMinutes=timeDifMinutes-60;
+        while (timeDifSeconds>60||timeDifMinutes>60) {
+            if (timeDifSeconds > 60) {
+                timeDifSeconds = timeDifSeconds - 60;
+            } else if (timeDifMinutes > 60) {
+                timeDifMinutes = timeDifMinutes - 60;
+            }
         }
         output.setText("You have taken "+timeDifHours+" hour "+timeDifMinutes+" mins "+timeDifSeconds+ "secs");
     }
