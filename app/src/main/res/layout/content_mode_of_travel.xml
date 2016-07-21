@@ -19,6 +19,18 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:weightSum="100">
     <ImageButton
         android:layout_width="170dp"
         android:layout_height="200dp"
@@ -27,7 +39,8 @@
         android:layout_below="@+id/Heading"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="40dp"
+        android:layout_weight="50"/>
 
     <ImageButton
         android:layout_width="170dp"
@@ -36,8 +49,16 @@
         android:src="@drawable/bike"
         android:layout_alignTop="@+id/walk"
         android:layout_toRightOf="@+id/walk"
-        android:layout_toEndOf="@+id/walk" />
+        android:layout_toEndOf="@+id/walk"
+        android:layout_marginTop="40dp"
+        android:layout_weight="50"/>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:weightSum="100">
     <ImageButton
         android:layout_width="170dp"
         android:layout_height="200dp"
@@ -45,7 +66,8 @@
         android:src="@drawable/car"
         android:layout_below="@+id/walk"
         android:layout_toLeftOf="@+id/bus"
-        android:layout_toStartOf="@+id/bus" />
+        android:layout_toStartOf="@+id/bus"
+        android:layout_weight="50"/>
 
     <ImageButton
         android:layout_width="170dp"
@@ -54,6 +76,37 @@
         android:src="@drawable/bus"
         android:layout_below="@+id/bike"
         android:layout_toRightOf="@+id/walk"
-        android:layout_toEndOf="@+id/walk" />
+        android:layout_toEndOf="@+id/walk"
+        android:layout_weight="50"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:weightSum="100">
+        <ImageButton
+            android:layout_width="170dp"
+            android:layout_height="200dp"
+            android:id="@+id/train"
+            android:src="@drawable/train"
+            android:layout_below="@+id/car"
+            android:layout_toLeftOf="@+id/bus"
+            android:layout_toStartOf="@+id/bus"
+            android:layout_weight="50"/>
+
+        <ImageButton
+            android:layout_width="170dp"
+            android:layout_height="200dp"
+            android:id="@+id/plain"
+            android:src="@drawable/plane"
+            android:layout_below="@+id/bus"
+            android:layout_toRightOf="@+id/walk"
+            android:layout_toEndOf="@+id/walk"
+            android:layout_weight="50"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
 
 </RelativeLayout>

@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 
 public class ModeOfTravel extends AppCompatActivity {
 
-    ImageButton walk,bike,car,bus;
+    ImageButton walk,bike,car,bus,train,plain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +24,8 @@ public class ModeOfTravel extends AppCompatActivity {
         bike=(ImageButton)findViewById(R.id.bike);
         car=(ImageButton)findViewById(R.id.car);
         bus=(ImageButton)findViewById(R.id.bus);
+        train=(ImageButton)findViewById(R.id.train);
+        plain=(ImageButton)findViewById(R.id.plain);
 
         walk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +52,18 @@ public class ModeOfTravel extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 action("Bus");
+            }
+        });
+        train.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                action("Train");
+            }
+        });
+        plain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                action("Airplane");
             }
         });
 

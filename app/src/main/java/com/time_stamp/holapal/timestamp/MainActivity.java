@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     TextView sourcetxt,destinatiotxt;
     static Date starttime, starttime1;
     int count=0;
-    public static String modeoftraspotation,sourcetxt1= "Source",destinatiotxt1 = "Destination";
+    public static String modeoftraspotation,sourcetxt1,destinatiotxt1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

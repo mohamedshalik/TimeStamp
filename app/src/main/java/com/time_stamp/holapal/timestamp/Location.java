@@ -15,6 +15,7 @@ public class Location extends AppCompatActivity {
 
     Button next;
     EditText source,destinatio;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +23,7 @@ public class Location extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         next = (Button)findViewById(R.id.next);
+
         source = (EditText)findViewById(R.id.sourcetxtbox);
         destinatio = (EditText)findViewById(R.id.destinationtxtbox);
 
@@ -33,10 +35,16 @@ public class Location extends AppCompatActivity {
                 {
                     MainActivity.sourcetxt1=(source.getText()).toString();
                 }
+                else{
+                    MainActivity.sourcetxt1="Source";
+                }
 
                 if (!(destinatio.getText().toString()).equals(""))
                 {
                     MainActivity.destinatiotxt1=(destinatio.getText()).toString();
+                }
+                else {
+                    MainActivity.destinatiotxt1="Destination";
                 }
 
 
