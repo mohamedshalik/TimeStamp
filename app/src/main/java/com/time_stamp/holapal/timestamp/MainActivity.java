@@ -1,7 +1,6 @@
 package com.time_stamp.holapal.timestamp;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +15,8 @@ import java.text.ParseException;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
     TextView sourcetxt,destinatiotxt;
     static Date starttime, starttime1;
     int count=0;
+  //  int timeDifHours=0,timeDifMinutes=0,timeDifSeconds=0;
     public static String modeoftraspotation,sourcetxt1,destinatiotxt1;
+    Timer T;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +58,13 @@ public class MainActivity extends AppCompatActivity {
 
                 if (count == 0) {
                     count = 1;
-                    start(starttxt);
+                    start(starttxt,output);
+
                 } else if (count == 1) {
                     count = 0;
-                    stop(endtxt, output);
+                    stop(endtxt);
+
+
                 }
 
 
@@ -84,19 +90,67 @@ public class MainActivity extends AppCompatActivity {
                 //Reset the Output
                 output.setText("You have taken 0 hour 0 mins 0 secs");
 
+                Result("Reset",null);
+
             }
         });
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
     }
 
-    public static void start(TextView starttxt)
+
+
+   public void Result(String input, final TextView dyout){
+
+
+       if (input == "Start") {
+           T=new Timer();
+           //schedule is method of timer class schedule(timer task, delay in milliseconds, period in milliseconds)
+           T.schedule(new TimerTask() {
+               @Override
+               public void run() {
+                   runOnUiThread(new Runnable() {
+                       @Override
+                       public void run() {
+
+                           Date date= new Date();
+                           //Date format
+                           DateFormat formatt=new SimpleDateFormat("hh:mm:ss");
+                           //note the end time for difference calculation
+                           try {
+                               starttime1=formatt.parse(formatt.format(date));
+                           } catch (ParseException e) {
+                               e.printStackTrace();
+                           }
+
+                           //calculate the difference in milliseconds
+                           long diff = starttime1.getTime() - starttime.getTime();
+                           //convert the milliseconds into Sec,Min and Hr
+                           long timeDifSeconds = diff / 1000;
+                           long timeDifMinutes = diff / (60 * 1000);
+                           long timeDifHours = diff / (60 * 60 * 1000);
+                           //reset the seconds and minutes value to 0 when it reaches 60
+                           while (timeDifSeconds>60||timeDifMinutes>60) {
+                               if (timeDifSeconds > 60) {
+                                   timeDifSeconds = timeDifSeconds - 60;
+                               } else if (timeDifMinutes > 60) {
+                                   timeDifMinutes = timeDifMinutes - 60;
+                               }
+                           }
+                           dyout.setText("You have taken " + timeDifHours + " hour " + timeDifMinutes + " mins " + timeDifSeconds + "secs");
+                       }
+                   });
+               }
+           }, 0, 1000);
+
+       }
+       else{
+           //Terminates this timer, discarding any currently scheduled tasks
+           T.cancel();
+       }
+
+   }
+
+    public  void start(TextView starttxt,TextView output)
     {
 
             start.setText("Stop");
@@ -112,9 +166,10 @@ public class MainActivity extends AppCompatActivity {
             //print the start time
             starttxt.setText(formatt.format(date));
 
+        Result("Start", output);
 
     }
-    public static void stop(TextView endtxt,TextView output)
+    public  void stop(TextView endtxt)
     {
         start.setText("Start");
         Date date= new Date();
@@ -128,24 +183,8 @@ public class MainActivity extends AppCompatActivity {
         }
         //Print the end time
         endtxt.setText(formatt.format(date));
-        //calculate the difference in milliseconds
-        long diff = starttime1.getTime() - starttime.getTime();
-        //convert the milliseconds into Sec,Min and Hr
-        long timeDifSeconds = diff / 1000;
-        long timeDifMinutes = diff / (60 * 1000);
-        long timeDifHours = diff / (60 * 60 * 1000);
 
-        //Tost the difference
-        //Toast.makeText(getApplicationContext(),timeDifHours+"hr\t"+timeDifMinutes+"min \t"+timeDifSeconds+"sec",Toast.LENGTH_LONG).show();
-        //Output MSG
-        while (timeDifSeconds>60||timeDifMinutes>60) {
-            if (timeDifSeconds > 60) {
-                timeDifSeconds = timeDifSeconds - 60;
-            } else if (timeDifMinutes > 60) {
-                timeDifMinutes = timeDifMinutes - 60;
-            }
-        }
-        output.setText("You have taken "+timeDifHours+" hour "+timeDifMinutes+" mins "+timeDifSeconds+ "secs");
+        Result("Stop", null);
     }
 
     @Override
