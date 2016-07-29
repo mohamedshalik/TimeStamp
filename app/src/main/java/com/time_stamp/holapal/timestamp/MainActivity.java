@@ -1,5 +1,6 @@
 package com.time_stamp.holapal.timestamp;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -75,6 +76,36 @@ public class MainActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                boolean itwork=true;
+
+                try {
+                    Db entery = new Db(MainActivity.this);
+                    entery.open();
+                    entery.create((sourcetxt.getText().toString()+"->"+destinatiotxt.getText().toString()));
+                    entery.close();
+                }
+                catch (Exception e)
+                {
+                    itwork=false;
+                    Dialog d=new Dialog(MainActivity.this);
+                    d.setTitle("Hey Update Stoped");
+                    TextView v=new TextView(MainActivity.this);
+                    v.setText(e.toString());
+                    d.setContentView(v);
+                    d.show();
+
+                }finally {
+                    if (itwork){
+                        Dialog d=new Dialog(MainActivity.this);
+                        d.setTitle("Hey Updated Sucessfully");
+                        TextView v=new TextView(MainActivity.this);
+                        v.setText("Success");
+                        d.setContentView(v);
+                        d.show();
+                    }
+
+                }
                 Toast.makeText(getApplicationContext(),"Successfully Saved",Toast.LENGTH_SHORT).show();
             }
         });
@@ -89,7 +120,8 @@ public class MainActivity extends AppCompatActivity {
                 endtxt.setText("End Time");
                 //Reset the Output
                 output.setText("You have taken 0 hour 0 mins 0 secs");
-
+                count=0;
+                start.setText("Start");
                 Result("Reset",null);
 
             }

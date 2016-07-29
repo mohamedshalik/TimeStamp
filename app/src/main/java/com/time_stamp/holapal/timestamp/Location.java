@@ -11,10 +11,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.sql.SQLException;
+
 public class Location extends AppCompatActivity {
 
-    Button next;
+    Button next,Viewbutton;
     EditText source,destinatio;
+    String[] datasad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,7 @@ public class Location extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         next = (Button)findViewById(R.id.next);
+        Viewbutton = (Button)findViewById(R.id.viewbutton);
 
         source = (EditText)findViewById(R.id.sourcetxtbox);
         destinatio = (EditText)findViewById(R.id.destinationtxtbox);
@@ -53,16 +57,24 @@ public class Location extends AppCompatActivity {
             }
         });
 
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        Viewbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Db viewinfo = new Db(Location.this);
+                try {
+                    viewinfo.open();
+                    datasad = viewinfo.displayname1();
+                    viewinfo.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                ViewLayout.classes = datasad;
+                Intent next = new Intent("android.intent.action.VIEWLAYOUT");
+                startActivity(next);
+
             }
         });
+
     }
 
 }
