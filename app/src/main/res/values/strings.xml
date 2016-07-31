@@ -93,4 +93,6 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_activity_location">Location</string>
+    <string name="title_activity_savelocation">savelocation</string>
+    <string name="title_activity_splash">Splash</string>
 </resources>

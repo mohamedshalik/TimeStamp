@@ -15,9 +15,9 @@ import java.sql.SQLException;
 
 public class Location extends AppCompatActivity {
 
-    Button next,Viewbutton;
+    Button next;
     EditText source,destinatio;
-    String[] datasad;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class Location extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         next = (Button)findViewById(R.id.next);
-        Viewbutton = (Button)findViewById(R.id.viewbutton);
+
 
         source = (EditText)findViewById(R.id.sourcetxtbox);
         destinatio = (EditText)findViewById(R.id.destinationtxtbox);
@@ -53,27 +53,14 @@ public class Location extends AppCompatActivity {
 
 
                 Intent timestamp=new Intent("android.intent.action.TIMESTAMP");
+                source.setText("");
+                destinatio.setText("");
                 startActivity(timestamp);
+                finish();
             }
         });
 
-        Viewbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Db viewinfo = new Db(Location.this);
-                try {
-                    viewinfo.open();
-                    datasad = viewinfo.displayname1();
-                    viewinfo.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                ViewLayout.classes = datasad;
-                Intent next = new Intent("android.intent.action.VIEWLAYOUT");
-                startActivity(next);
 
-            }
-        });
 
     }
 

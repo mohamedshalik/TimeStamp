@@ -24,7 +24,8 @@
         android:text="Choose The Mode Of Travel"
         android:id="@+id/Heading"
         android:layout_below="@+id/viewbutton"
-
+        android:layout_marginTop="10dp"
+        
         android:layout_centerHorizontal="true" />
 
 <ScrollView

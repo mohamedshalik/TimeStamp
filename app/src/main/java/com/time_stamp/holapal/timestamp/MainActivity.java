@@ -1,6 +1,7 @@
 package com.time_stamp.holapal.timestamp;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +29,10 @@ public class MainActivity extends AppCompatActivity {
     TextView sourcetxt,destinatiotxt;
     static Date starttime, starttime1;
     int count=0;
-  //  int timeDifHours=0,timeDifMinutes=0,timeDifSeconds=0;
+    long timeDifSeconds = 0;
+    long timeDifMinutes = 0;
+    long timeDifHours = 0;
+
     public static String modeoftraspotation,sourcetxt1,destinatiotxt1;
     Timer T;
 
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (count == 0) {
                     count = 1;
-                    start(starttxt,output);
+                    start(starttxt, output);
 
                 } else if (count == 1) {
                     count = 0;
@@ -76,62 +80,111 @@ public class MainActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!starttxt.getText().toString().equals("Start Time")) {
+                    if (!endtxt.getText().toString().equals("End Time")) {
 
-                boolean itwork=true;
+                        if (sourcetxt.getText().equals("Source")) {
+                            if (!destinatiotxt.getText().equals("Destination")) {
+                                savelocation.d = (destinatiotxt.getText().toString());
+                            }
+                            savelocation.s2 = (timeDifHours + " hour " + timeDifMinutes + " mins " + timeDifSeconds + "secs");
+                            savelocation.s3 = modeoftraspotation;
+                            Intent savelocal = new Intent("android.intent.action.SAVELOCATION");
+                            startActivity(savelocal);
+                            resetall();
+                            finish();
 
-                try {
-                    Db entery = new Db(MainActivity.this);
-                    entery.open();
-                    entery.create((sourcetxt.getText().toString()+"->"+destinatiotxt.getText().toString()));
-                    entery.close();
-                }
-                catch (Exception e)
-                {
-                    itwork=false;
-                    Dialog d=new Dialog(MainActivity.this);
-                    d.setTitle("Hey Update Stoped");
-                    TextView v=new TextView(MainActivity.this);
-                    v.setText(e.toString());
-                    d.setContentView(v);
-                    d.show();
+                        } else if (destinatiotxt.getText().equals("Destination")) {
+                            savelocation.s = (sourcetxt.getText().toString());
+                            savelocation.s2 = (timeDifHours + " hour " + timeDifMinutes + " mins " + timeDifSeconds + "secs");
+                            savelocation.s3 = modeoftraspotation;
+                            Intent savelocal = new Intent("android.intent.action.SAVELOCATION");
+                            startActivity(savelocal);
+                            resetall();
+                            finish();
 
-                }finally {
-                    if (itwork){
-                        Dialog d=new Dialog(MainActivity.this);
-                        d.setTitle("Hey Updated Sucessfully");
-                        TextView v=new TextView(MainActivity.this);
-                        v.setText("Success");
+                        } else {
+                            boolean itwork = true;
+
+                            try {
+                                Db entery = new Db(MainActivity.this);
+                                entery.open();
+                                entery.create((sourcetxt.getText().toString() + "->" + destinatiotxt.getText().toString()), (timeDifHours + " hour " + timeDifMinutes + " mins " + timeDifSeconds + "secs"),modeoftraspotation);
+                                entery.close();
+                            } catch (Exception e) {
+                                itwork = false;
+                                Dialog d = new Dialog(MainActivity.this);
+                                d.setTitle("Hey Update Stoped");
+                                TextView v = new TextView(MainActivity.this);
+                                v.setText(e.toString());
+                                d.setContentView(v);
+                                d.show();
+
+                            } finally {
+                                if (itwork) {
+                                    Toast.makeText(getApplicationContext(), "Successfully Saved", Toast.LENGTH_SHORT).show();
+                                    resetall();
+                                    finish();
+                                }
+
+
+                            }
+                        }
+                        // Toast.makeText(getApplicationContext(), "Successfully Saved", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Dialog d = new Dialog(MainActivity.this);
+                        d.setTitle("End Time");
+                        TextView v = new TextView(MainActivity.this);
+                        v.setText("You Have Not Ended The Time Stamp");
                         d.setContentView(v);
                         d.show();
                     }
-
+                }else {
+                    Dialog d = new Dialog(MainActivity.this);
+                    d.setTitle("Start Time");
+                    TextView v = new TextView(MainActivity.this);
+                    v.setText("You Have Not Started The Time Stamp");
+                    d.setContentView(v);
+                    d.show();
                 }
-                Toast.makeText(getApplicationContext(),"Successfully Saved",Toast.LENGTH_SHORT).show();
             }
+
         });
 
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //Reset the start time
-                starttxt.setText("Start Time");
-                //Reset the End time
-                endtxt.setText("End Time");
-                //Reset the Output
-                output.setText("You have taken 0 hour 0 mins 0 secs");
-                count=0;
-                start.setText("Start");
-                Result("Reset",null);
+                if(starttxt.getText().toString().equals("Start Time")||endtxt.getText().toString().equals("End Time")||
+                        output.getText().toString().equals("You have taken 0 hour 0 mins 0 secs"))
+                {
+
+                }
+                else {
+                    resetall();
+                }
+
 
             }
         });
 
     }
 
+    private void resetall() {
+        //Reset the start time
+        starttxt.setText("Start Time");
+        //Reset the End time
+        endtxt.setText("End Time");
+        //Reset the Output
+        output.setText("You have taken 0 hour 0 mins 0 secs");
+        count=0;
+        start.setText("Start");
+        Result("Reset",null);
+    }
 
 
-   public void Result(String input, final TextView dyout){
+    public void Result(String input, final TextView dyout){
 
 
        if (input == "Start") {
@@ -157,9 +210,9 @@ public class MainActivity extends AppCompatActivity {
                            //calculate the difference in milliseconds
                            long diff = starttime1.getTime() - starttime.getTime();
                            //convert the milliseconds into Sec,Min and Hr
-                           long timeDifSeconds = diff / 1000;
-                           long timeDifMinutes = diff / (60 * 1000);
-                           long timeDifHours = diff / (60 * 60 * 1000);
+                            timeDifSeconds = diff / 1000;
+                            timeDifMinutes = diff / (60 * 1000);
+                            timeDifHours = diff / (60 * 60 * 1000);
                            //reset the seconds and minutes value to 0 when it reaches 60
                            while (timeDifSeconds>60||timeDifMinutes>60) {
                                if (timeDifSeconds > 60) {
