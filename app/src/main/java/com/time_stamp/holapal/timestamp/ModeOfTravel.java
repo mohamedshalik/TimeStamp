@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 
@@ -75,6 +76,7 @@ public class ModeOfTravel extends AppCompatActivity {
         Viewbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            int countofrow = 0;
             /*    Db viewinfo = new Db(ModeOfTravel.this);
                 try {
                     viewinfo.open();
@@ -84,12 +86,26 @@ public class ModeOfTravel extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 ViewLayout.classes = datasad;*/
-               titiledata();
-               timedata();
-               imgdata();
-               assignimg();
-                Intent next = new Intent("android.intent.action.IMLBAA");
-                startActivity(next);
+                Db viewinfo = new Db(ModeOfTravel.this);
+                try {
+                    viewinfo.open();
+                    countofrow = viewinfo.norow();
+                    viewinfo.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                if(countofrow==0){
+                    Toast.makeText(getApplicationContext(), "There is no data exists", Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    titiledata();
+                    timedata();
+                    imgdata();
+                    assignimg();
+                    Intent next = new Intent("android.intent.action.IMLBAA");
+                    startActivity(next);
+                }
 
 
             }

@@ -62,7 +62,7 @@
         </activity>
         <activity
             android:name=".Splash"
-            android:label="TimeStamp 1.0" >
+            android:label="Trip Info" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

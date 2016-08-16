@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     long timeDifSeconds = 0;
     long timeDifMinutes = 0;
     long timeDifHours = 0;
-
     public static String modeoftraspotation,sourcetxt1,destinatiotxt1;
     Timer T;
 
@@ -64,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 if (count == 0) {
                     count = 1;
                     start(starttxt, output);
+
 
                 } else if (count == 1) {
                     count = 0;
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                             try {
                                 Db entery = new Db(MainActivity.this);
                                 entery.open();
-                                entery.create((sourcetxt.getText().toString() + "->" + destinatiotxt.getText().toString()), (timeDifHours + " hour " + timeDifMinutes + " mins " + timeDifSeconds + "secs"),modeoftraspotation);
+                                entery.create((sourcetxt.getText().toString() + "->" + destinatiotxt.getText().toString()), (timeDifHours + " hour " + timeDifMinutes + " mins " + timeDifSeconds + "secs"), modeoftraspotation);
                                 entery.close();
                             } catch (Exception e) {
                                 itwork = false;
@@ -131,8 +131,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         // Toast.makeText(getApplicationContext(), "Successfully Saved", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
+                    } else {
                         Dialog d = new Dialog(MainActivity.this);
                         d.setTitle("End Time");
                         TextView v = new TextView(MainActivity.this);
@@ -140,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                         d.setContentView(v);
                         d.show();
                     }
-                }else {
+                } else {
                     Dialog d = new Dialog(MainActivity.this);
                     d.setTitle("Start Time");
                     TextView v = new TextView(MainActivity.this);
@@ -156,12 +155,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(starttxt.getText().toString().equals("Start Time")||endtxt.getText().toString().equals("End Time")||
-                        output.getText().toString().equals("You have taken 0 hour 0 mins 0 secs"))
-                {
+                if (starttxt.getText().toString().equals("Start Time") || endtxt.getText().toString().equals("End Time") ||
+                        output.getText().toString().equals("You have taken 0 hour 0 mins 0 secs")) {
 
-                }
-                else {
+                } else {
                     resetall();
                 }
 
@@ -180,9 +177,19 @@ public class MainActivity extends AppCompatActivity {
         output.setText("You have taken 0 hour 0 mins 0 secs");
         count=0;
         start.setText("Start");
-        Result("Reset",null);
+        Result("Reset", null);
     }
 
+    @Override
+    public void onBackPressed() {
+        if(starttxt.getText().toString().equals("Start Time")&&endtxt.getText().equals("End Time"))
+        {
+            finish();
+        }
+        else {
+            this.moveTaskToBack(true);
+        }
+    }
 
     public void Result(String input, final TextView dyout){
 
