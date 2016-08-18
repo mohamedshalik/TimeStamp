@@ -3,6 +3,7 @@ package com.time_stamp.holapal.timestamp;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     long timeDifSeconds = 0;
     long timeDifMinutes = 0;
     long timeDifHours = 0;
+    boolean doubleBackToExitPressedOnce = false;
     public static String modeoftraspotation,sourcetxt1,destinatiotxt1;
     Timer T;
 
@@ -182,12 +184,27 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(starttxt.getText().toString().equals("Start Time")&&endtxt.getText().equals("End Time"))
+        if(starttxt.getText().toString().equals("Start Time") && endtxt.getText().equals("End Time"))
         {
-            finish();
+            if (doubleBackToExitPressedOnce) {
+                finish();
+            }
+            else{
+                doubleBackToExitPressedOnce = true;
+                Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce = false;
+                    }
+                }, 2000);
+            }
+
         }
         else {
-            this.moveTaskToBack(true);
+
+            moveTaskToBack(true);
         }
     }
 

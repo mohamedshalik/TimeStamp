@@ -2,6 +2,7 @@ package com.time_stamp.holapal.timestamp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ public class ModeOfTravel extends AppCompatActivity {
     ImageButton walk,bike,car,bus,train,plain;
     Button Viewbutton;
     String[] datasad,datatime,dataimg;
+    boolean doubleBackToExitPressedOnce = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -208,4 +210,26 @@ public class ModeOfTravel extends AppCompatActivity {
         startActivity(location);
         finish();
     }
+    @Override
+    public void onBackPressed() {
+
+
+            if (doubleBackToExitPressedOnce) {
+                finish();
+            }
+            else{
+                doubleBackToExitPressedOnce = true;
+                Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce = false;
+                    }
+                }, 2000);
+            }
+
+
+    }
+
 }
